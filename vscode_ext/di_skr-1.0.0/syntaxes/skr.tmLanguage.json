@@ -1,0 +1,292 @@
+{
+  "name": "skr",
+  "scopeName": "source.skr",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#svz-sections" },
+    { "include": "#prm-section" },
+    { "include": "#tm-section" },
+    { "include": "#ustrv-section" },
+    { "include": "#obrz-section" },
+    { "include": "#elmnt-section" },
+    { "include": "#common-rules" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "comment": "Однострочные комментарии //",
+          "match": "//.*$",
+          "name": "kmntr.skr"
+        },
+        {
+          "comment": "Многострочные комментарии /* ... */",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "name": "kmntr.skr"
+        }
+      ]
+    },
+    "svz-sections": {
+      "comment": "Остальные плоские секции верхнего уровня: @svz",
+      "match": "(@)(svz)\\b",
+      "captures": {
+        "1": { "name": "k.grp.skr" },
+        "2": { "name": "z.grp.skr" }
+      }
+    },
+    "prm-section": {
+      "comment": "СТРОГАЯ ИЗОЛЯЦИЯ ДЛЯ ТЕМ @prm — ОБЪЕКТЫ КРАСЯТСЯ КАК КЛАССЫ (ЯРКО-ГОЛУБОЙ)",
+      "begin": "(@)(prm)\\s*(\\{)",
+      "beginCaptures": {
+        "1": { "name": "k.grp.skr" },
+        "2": { "name": "z.grp.skr" },
+        "3": { "name": "skb.grp.skr" }
+      },
+      "end": "(?=\\s*^\\s*@)",
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "comment": "Любые названия тем перед скобкой внутри @prm (dark, light) — ЯРКО-ГОЛУБЫЕ",
+          "match": "\\b([a-zA-Z_а-яА-Я0-9_]+)\\s*(?=\\()",
+          "captures": {
+            "1": { "name": "obj.prm.skr" }
+          }
+        },
+        { "include": "#common-rules" }
+      ]
+    },
+    "tm-section": {
+      "comment": "СТРОГАЯ ИЗОЛЯЦИЯ ДЛЯ ТЕМ @tm — ОБЪЕКТЫ КРАСЯТСЯ КАК КЛАССЫ (ЯРКО-ГОЛУБОЙ)",
+      "begin": "(@)(tm)\\s*(\\{)",
+      "beginCaptures": {
+        "1": { "name": "k.grp.skr" },
+        "2": { "name": "z.grp.skr" },
+        "3": { "name": "skb.grp.skr" }
+      },
+      "end": "(?=\\s*^\\s*@)",
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "comment": "Любые названия тем перед скобкой внутри @tm (dark, light) — ЯРКО-ГОЛУБЫЕ",
+          "match": "\\b([a-zA-Z_а-яА-Я0-9_]+)\\s*(?=\\()",
+          "captures": {
+            "1": { "name": "obj.tm.skr" }
+          }
+        },
+        { "include": "#common-rules" }
+      ]
+    },
+    "ustrv-section": {
+      "comment": "СТРОГАЯ ИЗОЛЯЦИЯ ДЛЯ ПРОФИЛЕЙ УСТРОЙСТВ @ustrv",
+      "begin": "(@)(ustrv)\\s*(\\{)",
+      "beginCaptures": {
+        "1": { "name": "k.grp.skr" },
+        "2": { "name": "z.grp.skr" },
+        "3": { "name": "skb.grp.skr" }
+      },
+      "end": "(?=\\s*^\\s*@)",
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "comment": "Любые варианты профилей оборудования перед скобкой внутри ustrv (vrnt_1, vrnt_2) — БИРЮЗОВЫЕ",
+          "match": "\\b([a-zA-Z_а-яА-Я0-9_]+)\\s*(?=\\()",
+          "captures": {
+            "1": { "name": "obj.ustrv.skr" }
+          }
+        },
+        {
+          "comment": "НОВЫЙ КЛАСС: Дополнительное правило или условное сравнение вариантов оборудования",
+          "match": "(\\?(?:[=!]|<|>)+)(?=[0-9x]+)",
+          "captures": {
+            "1": { "name": "vdm.ustrv.srvn.skr" }
+          }
+        },
+        { "include": "#common-rules" }
+      ]
+    },
+    "obrz-section": {
+      "comment": "СТРОГАЯ ИЗОЛЯЦИЯ ДЛЯ КЛАССОВ @obrz",
+      "begin": "(@)(obrz)\\s*(\\{)",
+      "beginCaptures": {
+        "1": { "name": "k.grp.skr" },
+        "2": { "name": "z.grp.skr" },
+        "3": { "name": "skb.grp.skr" }
+      },
+      "end": "(?=\\s*^\\s*@)",
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "comment": "Любое слово перед скобкой внутри секции obrz — ЯРКО-ГОЛУБОЙ КЛАСС",
+          "match": "\\b([a-zA-Z_а-яА-Я0-9_]+)\\s*(?=\\()",
+          "captures": {
+            "1": { "name": "obj.obrz.skr" }
+          }
+        },
+        {
+          "comment": "Значение obrz без кавычек — ЯРКО-ГОЛУБОЙ ЖИРНЫЙ КУРСИВ",
+          "match": "(?<=obrz_strh:\\s*)[a-zA-Z_а-яА-Я0-9_]+\\b",
+          "name": "vdm.obj.obrz.skr"
+        },
+        { "include": "#common-rules" }
+      ]
+    },
+        "elmnt-section": {
+      "comment": "СТРОГАЯ ИЗОЛЯЦИЯ ДЛЯ ЭЛЕМЕНТОВ @elmnt",
+      "begin": "(@)(elmnt)\\s*(\\{)",
+      "beginCaptures": {
+        "1": { "name": "k.grp.skr" },
+        "2": { "name": "z.grp.skr" },
+        "3": { "name": "skb.grp.skr" }
+      },
+      "end": "(?=\\s*^\\s*@)",
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "comment": "ИСПРАВЛЕНО НАМЕРТВО: Четкое разделение krb, :, кода элемента и открывающей скобки (",
+          "match": "\\b([a-zA-Z_а-яА-Я0-9_]+)(:)([a-zA-Z_а-яА-Я0-9_]+)\\s*(\\()",
+          "captures": {
+            "1": { "name": "obj.elmnt.skr" },
+            "2": { "name": "rzdl_2t.skr" },
+            "3": { "name": "obj.elmnt_k.skr" },
+            "4": { "name": "skb.skr" }
+          }
+        },
+        {
+          "comment": "Значение obrz без кавычек — ЯРКО-ГОЛУБОЙ ЖИРНЫЙ КУРСИВ",
+          "match": "(?<=obrz(_mldsh)?:\\s*)[a-zA-Z_а-яА-Я0-9_]+\\b",
+          "name": "vdm.obj.obrz.skr"
+        },
+        {
+          "comment": "Любое слово перед скобкой внутри секции elmnt — ОРАНЖЕВЫЙ ЭЛЕМЕНТ МАКЕТА",
+          "match": "\\b([a-zA-Z_а-яА-Я0-9_]+)\\s*(?=\\()",
+          "captures": {
+            "1": { "name": "obj.elmnt.skr" }
+          }
+        },
+        {
+          "comment": "Синтаксический сахар: Ссылка на существующий ELMNT_K через точку (Мягкий золотисто-зеленый курсив)",
+          "match": "(\\.)([a-zA-Z_а-яА-Я0-9_]+)",
+          "captures": {
+            "1": { "name": "k.sugar_dot.skr" },
+            "2": { "name": "vdm.obj.elmnt_k.skr" }
+          }
+        },
+        { "include": "#common-rules" }
+      ]
+    },
+    "common-rules": {
+      "patterns": [
+        {
+          "comment": "ПОДСВЕТКА МУСОРНЫХ ПРОБЕЛОВ ПОСЛЕ ЧИСЕЛ/ЗНАЧЕНИЙ ПЕРЕД КОММЕНТАРИЕМ ИЛИ КОНЦОМ СТРОКИ",
+          
+          "match": "([ \t]+)(?=\r?\n|$)",
+          "captures": {
+            "1": { "name": "invalid.illegal.trailing-whitespace.skr" }
+          }
+        },
+        {
+          "comment": "ХИРУРГИЧЕСКИЙ ПЕРЕХВАТ ПРЕФИКСОВ ТЕМ @prm:имя",
+          "match": "(@)(prm)(.)(\\$[a-zA-Z_а-яА-Я0-9_]+)",
+          "captures": {
+            "1": { "name": "k.grp.skr" },
+            "2": { "name": "z.grp.skr" },
+            "3": { "name": "rscht.oprc.skr" },
+            "4": { "name": "vdm.vstvlm.prm.skr" }
+          }
+        },
+        {
+          "comment": "ХИРУРГИЧЕСКИЙ ПЕРЕХВАТ ПРЕФИКСОВ ТЕМ @prm:имя",
+          "match": "(@)(prm)(.)(\\&[a-zA-Z_а-яА-Я0-9_]+)",
+          "captures": {
+            "1": { "name": "k.grp.skr" },
+            "2": { "name": "z.grp.skr" },
+            "3": { "name": "rscht.oprc.skr" },
+            "4": { "name": "vdm.ukz.prm.skr" }
+          }
+        },
+        {
+          "comment": "ХИРУРГИЧЕСКИЙ ПЕРЕХВАТ ПРЕФИКСОВ ТЕМ @tm:имя",
+          "match": "(@)(tm)(.)([a-zA-Z_а-яА-Я0-9_]+)",
+          "captures": {
+            "1": { "name": "k.grp.skr" },
+            "2": { "name": "z.grp.skr" },
+            "3": { "name": "rscht.oprc.skr" },
+            "4": { "name": "vdm.obj.tm.skr" }
+          }
+        },
+        {
+          "comment": "ХИРУРГИЧЕСКИЙ ПЕРЕХВАТ ПРЕФИКСОВ УСТРОЙСТВ @ustrv:имя",
+          "match": "(@)(ustrv)(.)([a-zA-Z_а-яА-Я0-9_]+)",
+          "captures": {
+            "1": { "name": "k.grp.skr" },
+            "2": { "name": "z.grp.skr" },
+            "3": { "name": "rscht.oprc.skr" },
+            "4": { "name": "vdm.obj.ustrv.skr" }
+          }
+        },
+        {
+          "comment": "ХИРУРГИЧЕСКИЙ ПЕРЕХВАТ ПРЕФИКСОВ КЛАССОВ @obrz:имя — ВЫСШИЙ ПРИОРИТЕТ В COMMON",
+          "match": "(@)(obrz)(.)([a-zA-Z_а-яА-Я0-9_]+)",
+          "captures": {
+            "1": { "name": "k.grp.skr" },
+            "2": { "name": "z.grp.skr" },
+            "3": { "name": "rscht.oprc.skr" },
+            "4": { "name": "vdm.obj.obrz.skr" }
+          }
+        },
+        {
+          "comment": "ХИРУРГИЧЕСКИЙ ПЕРЕХВАТ ПРЕФИКСОВ УСТРОЙСТВ @elmnt:имя",
+          "match": "(@)(elmnt)(.)([a-zA-Z_а-яА-Я0-9_]+)",
+          "captures": {
+            "1": { "name": "k.grp.skr" },
+            "2": { "name": "z.grp.skr" },
+            "3": { "name": "rscht.oprc.skr" },
+            "4": { "name": "vdm.obj.elmnt_k.skr" }
+          }
+        },
+        {
+          "comment": "ИНДИВИДУАЛЬНЫЙ ПАТТЕРН ДЛЯ ДИРЕКТИВЫ vdm БЕЗ ДВОЕТОЧИЯ",
+          "match": "\\b(vdm)\\s*(?=[\\{\\[])",
+          "captures": {
+            "1": { "name": "keyword.vdm.prm.skr" }
+          }
+        },
+        {
+          "comment": "Абсолютно все типы свойств на всех уровнях перед двоеточием — ЛАВАНДОВЫЙ КУРСИВ",
+          "match": "\\b([a-zA-Z_а-яА-Я0-9_]+)\\s*(?=:)",
+          "captures": {
+            "1": { "name": "k.prm.skr" }
+          }
+        },
+        { "match": "\\$[a-zA-Z_а-яА-Я0-9_]+", "name": "vstvlm.prm.skr" },
+        { "match": "\\&[a-zA-Z_а-яА-Я0-9_]+", "name": "ukz.prm.skr" },
+        { "match": "(?<=[:\\.])\\s*(\\$[a-zA-Z_а-яА-Я0-9_]+)", "name": "vdm.vstvlm.prm.skr" },
+        { "match": "(?<=[:\\.])\\s*(&[a-zA-Z_а-яА-Я0-9_]+)", "name": "vdm.ukz.prm.skr" },
+        { "begin": "\"", "end": "\"", "name": "str.prm.skr" },
+        {
+          "comment": "Символ # и HEX-коды цветов",
+          "match": "#[a-fA-F0-9]*\\b|#",
+          "name": "cvt.prm.skr"
+        },
+        { "match": "\\b0x[0-9a-fA-F]+\\b|\\b\\d+\\b", "name": "chsl.prm.skr" },
+        { "match": "\\b[A-Z_][A-Z0-9_]*\\b", "name": "pstn.prm.skr" },
+        {
+          "comment": "Параметры и значения девайсов (device, DESKTOP, MOBILE) — БИРЮЗОВЫЕ",
+          "match": "\\b(device|DESKTOP|MOBILE)\\b",
+          "name": "obj.ustrv.skr"
+        },
+        {
+          "comment": "Фигурные, квадратные и круглые скобки",
+          "match": "[\\[\\]\\{\\}\\(\\)]",
+          "name": "skb.skr"
+        },
+        {
+          "comment": "Математические операторы и знаки разделения",
+          "match": "[%\\|\\+\\-\\*/,;:]",
+          "name": "rscht.oprc.skr"
+        }
+      ]
+    }
+  }
+}

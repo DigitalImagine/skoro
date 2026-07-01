@@ -1,0 +1,154 @@
+{
+  "name": "di_skr",
+  "displayName": "skr Language Support",
+  "description": "Низкоуровневая подсветка синтаксиса для интерфейсного языка скоро (skr)",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "skr",
+      "aliases": ["skr", "skoro"],
+      "extensions": [".skr"],
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./skr-icon.svg",
+        "dark": "./skr-icon.svg"
+      }
+    }],
+    "grammars": [{
+      "language": "skr",
+      "scopeName": "source.skr",
+      "path": "./syntaxes/skr.tmLanguage.json",
+      "semanticHighlighting": false
+    }],
+    "configurationDefaults": {
+      "editor.tokenColorCustomizations": {
+        "textMateRules": [
+          {
+            "scope": "invalid.illegal.trailing-whitespace.skr",
+            "settings": {
+                "background": "#FF0000",
+                "foreground": "#ff3333",
+                "fontStyle": "bold strikethrough underline"
+            }
+          },
+          {
+            "comment": "Знак @ перед группами: сочный ярко-розовый",
+            "scope": ["k.grp.skr", "z.grp.skr"],
+            "settings": { "foreground": "#EB608E", "fontStyle": "bold" }
+          },
+          {
+            "comment": "Шаблоны многоразовых ТЕМ внутри @tm и значения свойства obrz: сочный ярко-голубой ЖИРНЫЙ",
+            "scope": "obj.tm.skr",
+            "settings": { "foreground": "#e0e0e0", "fontStyle": "bold" }
+          },
+          {
+            "comment": "Шаблоны многоразовых ТЕМ внутри @obrz и значения свойства obrz: сочный ярко-голубой ЖИРНЫЙ КУРСИВ",
+            "scope": "vdm.obj.tm.skr",
+            "settings": { "foreground": "#e0e0e0", "fontStyle": "bold italic" }
+          },
+          {
+            "comment": "ПРОФИЛИ ЖЕЛЕЗА внутри @ustrv (device, DESKTOP): сочный ментолово-бирюзовый",
+            "scope": "obj.ustrv.skr",
+            "settings": { "foreground": "#4EC9B0", "fontStyle": "bold" }
+          },
+          {
+            "comment": "ПРОФИЛИ ЖЕЛЕЗА внутри @ustrv (device, DESKTOP): сочный ментолово-бирюзовый",
+            "scope": "vdm.obj.ustrv.skr",
+            "settings": { "foreground": "#4EC9B0", "fontStyle": "bold italic" }
+          },
+          {
+            "comment": "УЗЛЫ И ЭЛЕМЕНТЫ ТОПОЛОГИИ внутри @elmnt: сочный neo-оранжевый макетный",
+            "scope": "obj.elmnt.skr",
+            "settings": { "foreground": "#FF9F29", "fontStyle": "bold" }
+          },
+          {
+            "comment": "Шаблоны многоразовых КЛАССОВ внутри @obrz и значения свойства obrz: сочный ярко-голубой ЖИРНЫЙ",
+            "scope": "obj.obrz.skr",
+            "settings": { "foreground": "#39adec", "fontStyle": "bold" }
+          },
+          {
+            "comment": "Шаблоны многоразовых КЛАССОВ внутри @obrz и значения свойства obrz: сочный ярко-голубой ЖИРНЫЙ КУРСИВ",
+            "scope": "vdm.obj.obrz.skr",
+            "settings": { "foreground": "#39adec", "fontStyle": "bold italic" }
+          },
+          {
+            "comment": "Значения уникальных ID элементов: золотисто-оранжевый ЖИРНЫЙ КУРСИВ",
+            "scope": ["obj.id.skr", "vdm.obj.id.skr"],
+            "settings": { "foreground": "#42c76c", "fontStyle": "bold italic" }
+          },
+          {
+            "comment": "Встраиваемые статические параметры $: ваш фирменный мягкий зеленый оттенок",
+            "scope": "inline.prm.skr",
+            "settings": { "foreground": "#55ca72" }
+          },
+          {
+            "comment": "Указательные рантайм-переменные &: ваш глубокий цвет морской волны",
+            "scope": "ukz.prm.skr",
+            "settings": { "foreground": "#55b7bc" }
+          },
+          {
+            "comment": "Константы заглавными буквами (BLOCK, FIXED): темно-синий #define из C++",
+            "scope": "pstn.prm.skr",
+            "settings": { "foreground": "#1764b5", "fontStyle": "bold" }
+          },
+          {
+            "comment": "Критически важное системное свойство vdm: фирменный сочный пурпурно-фиолетовый",
+            "scope": "keyword.vdm.prm.skr",
+            "settings": { "foreground": "#C586C0", "fontStyle": "bold" }
+          },
+          {
+            "comment": "Абсолютно все типы свойств на всех уровнях (width:, obrz:, s_cvt:, vdm:): ТВОЙ ЛАВАНДОВЫЙ КУРСИВ",
+            "scope": ["k.prm.skr", "sub.k.prm.skr", "strk.prm.skr"],
+            "settings": { "foreground": "#B48EAD", "fontStyle": "italic" }
+          },
+          {
+            "comment": "Цвета 0x и числа: стандартный салатовый VS Code",
+            "scope": "cvt.prm.skr",
+            "settings": { "foreground": "#c7c7c7" }
+          },
+          {
+            "comment": "Цвета 0x и числа: стандартный салатовый VS Code",
+            "scope": "chsl.prm.skr",
+            "settings": { "foreground": "#B5CEA8" }
+          },
+          {
+            "comment": "Строки id и device в кавычках: мягкий песочно-желтый",
+            "scope": "str.prm.skr",
+            "settings": { "foreground": "#CE9178" }
+          },
+          {
+            "comment": "Фигурные, квадратные и круглые скобки |: контрастный золотистый",
+            "scope": ["skb.skr", "skb.grp.skr"],
+            "settings": { "foreground": "#F5A623", "fontStyle": "bold" }
+          },
+          {
+            "comment": "Математические операторы, знак расчёта % и пайп |: контрастный золотистый",
+            "scope": "rscht.oprc.skr",
+            "settings": { "foreground": "#ffffff" }
+          },
+          {
+            "comment": "Комментарии //: аккуратный матовый зеленый",
+            "scope": "kmntr.skr",
+            "settings": { "foreground": "#5C6573" }
+          },
+          {
+            "comment": "Запрет подсветки операторов и фигурных скобок, если они оказались внутри комментариев",
+            "scope": ["comment rscht.oprc.skr", "comment.block rscht.oprc.skr"],
+            "settings": { "foreground": "#5C6573", "fontStyle": "" }
+          },
+          {
+            "comment": "Принудительный запрет на покраску HEX/символа цвета внутри комментариев",
+            "scope": ["comment cvt.prm.skr", "comment.block cvt.prm.skr"],
+            "settings": { "foreground": "#5C6573", "fontStyle": "" }
+          }
+        ]
+      }
+    }
+  }
+}
