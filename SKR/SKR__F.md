@@ -73,9 +73,9 @@ FP_KN_7(FP_K_, ARG_1, ARG_2, ARG_3, ARG_4, ARG_5, ARG_6, ARG_7)
 	ops {
 		// Пример Объявления Структуры
 		struct s_okn_prm {
-			t_u20	shrn;	// Ширина Окна
-			t_u20	vst;	// Высота Окна
-			t_f40	cvt;	// Цвет Окна
+			t_n20	shrn;	// Ширина Окна
+			t_n20	vst;	// Высота Окна
+			t_d40	cvt;	// Цвет Окна
 		} = {
 			.shrn = 0x1,
 			.vst = 0x0,
