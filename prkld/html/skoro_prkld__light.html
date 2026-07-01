@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body{background-color:#ffffff;font-family:'Courier New',monospace;font-size:14px;line-height:1.5;padding:20px;margin:0;}pre{margin:0;white-space:pre-wrap;word-wrap:break-word;tab-size: 4;-moz-tab-size: 4;}.sys_prm_skr{font-weight:bold;}
+.color_preview_skr { display:inline-block; width: 12px; height: 12px; margin-right: 5px; border: 1px solid #7F7F7F; vertical-align: middle; margin-bottom: 4px; border-radius: 4px; box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); }
+.invalid_illegal_trailing-whitespace_skr{color:#CC0000;background-color:#FFD0D0;font-weight:bold;text-decoration:underline line-through;}
+.k_grp_skr{color:#A31515;font-weight:bold;}
+.z_grp_skr{color:#A31515;font-weight:bold;}
+.obj_tm_skr{color:#222222;font-weight:bold;}
+.vdm_obj_tm_skr{color:#222222;font-weight:bold;font-style:italic;}
+.obj_ustrv_skr{color:#005F4B;font-weight:bold;}
+.vdm_obj_ustrv_skr{color:#005F4B;font-weight:bold;font-style:italic;}
+.obj_elmnt_skr{color:#B15C00;font-weight:bold;}
+.vdm_obj_elmnt_skr{color:#B15C00;font-weight:bold;font-style:italic;}
+.obj_obrz_skr{color:#006699;font-weight:bold;}
+.vdm_obj_obrz_skr{color:#006699;font-weight:bold;font-style:italic;}
+.obj_elmnt_k_skr{color:#3A69B3;font-weight:bold;}
+.vdm_obj_elmnt_k_skr{color:#3A69B3;font-weight:bold;font-style:italic;}
+.vstvlm_prm_skr{color:#1B7A31;}
+.vdm_vstvlm_prm_skr{color:#1B7A31;font-weight:bold;font-style:italic;}
+.ukz_prm_skr{color:#44494aff;}
+.vdm_ukz_prm_skr{color:#1A6F73;font-weight:bold;font-style:italic;}
+.pstn_prm_skr{color:#0431FA;font-weight:bold;}
+.keyword_vdm_prm_skr{color:#AF00DB;font-weight:bold;}
+.k_prm_skr{color:#744B70;font-weight:normal;font-style:italic;}
+.sub_k_prm_skr{color:#744B70;font-weight:normal;font-style:italic;}
+.strk_prm_skr{color:#744B70;font-weight:normal;font-style:italic;}
+.cvt_prm_skr{color:#444444;}
+.chsl_prm_skr{color:#098658;}
+.str_prm_skr{color:#A31515;}
+.skb_skr{color:#A46600;font-weight:bold;}
+.skb_grp_skr{color:#A46600;font-weight:bold;}
+.rscht_oprc_skr{color:#A46600;font-weight:bold;}
+.k__s_elmnt_skr{color:#A46600;font-weight:bold;}
+.kmntr_skr{color:#7F7F7F;}
+.comment_rscht_oprc_skr{color:#008000;}
+.comment_block_rscht_oprc_skr{color:#008000;}
+.comment_cvt_prm_skr{color:#008000;}
+.comment_block_cvt_prm_skr{color:#008000;}
+.k_sugar_dot_skr{color:#444444;font-weight:bold;font-style:italic;}
+.vdm_ustrv_srvn_skr{color:#7A0060;font-weight:bold;}
+
+</style>
+</head>
+<body>
+<pre><span class="kmntr_skr">// ============================================================================</span>
+<span class="kmntr_skr">// 0. СВЯЗНЫЕ ОПИСИ ОТОБРАЖЕНИЯ</span>
+<span class="kmntr_skr">// ============================================================================</span>
+
+<span class="kmntr_skr">/*@svz {
+	"SVZ_25.skr"
+}*/</span>
+
+
+<span class="kmntr_skr">// ============================================================================</span>
+<span class="kmntr_skr">// 1. ПАРАМЕТРЫ И ПЕРЕМЕННЫЕ (AoT-константы и динамические указатели ОЗУ) (Приоритет 4.1)</span>
+<span class="kmntr_skr">// ============================================================================</span>
+<span class="sys_prm_skr"><span class="k_grp_skr">@</span><span class="z_grp_skr">prm</span></span> <span class="skb_skr">{</span><span class="space_block_prm">
+	<span class="vstvlm_prm_skr">$prm_8</span>		<span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">0777</span>				<span class="kmntr_skr">// Задание Значения Вставляемого Параметра в Форме Целого Числа (Восьмеричного)</span>
+	<span class="vstvlm_prm_skr">&ukz_10</span>		<span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">1000</span>				<span class="kmntr_skr">// Задание Значения Указательного Параметра в Форме Целого Числа (Десятичного)</span>
+	<span class="vstvlm_prm_skr">$prm_drbn</span>	<span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">1.5</span>				<span class="kmntr_skr">// Задание Значения Вставляемого Параметра в Форме Дробного Числа</span>
+	<span class="vstvlm_prm_skr">&pnl_9rkst</span>	<span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">0x010101FF</span>		<span class="kmntr_skr">// Задание Значения Указательного Параметра в Форме Целого Числа (Шестнадцатеричного)</span>
+	<span class="vstvlm_prm_skr">$cvt_base</span>	<span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">0x0370777F</span>		<span class="kmntr_skr">// Задание Значения Вставляемого Параметра в Форме Целого Числа (Шестнадцатеричного)</span>
+	<span class="vstvlm_prm_skr">&user_cvt</span>	<span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">0x0370777F</span>		<span class="kmntr_skr">// Задание Значения Указательного Параметра в Форме Целого Числа (Шестнадцатеричного) (Повторяет Значение Варианта $cvt_base)</span>
+	<span class="vstvlm_prm_skr">$cvt_dop1</span>	<span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">0xA370777F</span>		<span class="kmntr_skr">// Задание Значения Вставляемого Параметра в Форме Целого Числа (Шестнадцатеричного)</span>
+
+	<span class="vstvlm_prm_skr">$mrgn_1</span>		<span class="rscht_oprc_skr">:</span> <span class="skb_skr">[</span><span class="chsl_prm_skr">10</span><span class="rscht_oprc_skr">,</span> <span class="chsl_prm_skr">10</span><span class="rscht_oprc_skr">,</span> <span class="chsl_prm_skr">10</span><span class="rscht_oprc_skr">,</span> <span class="chsl_prm_skr">10</span><span class="skb_skr">]</span>	<span class="kmntr_skr">// Задание Значения Вставляемого Параметра в Форме Целого Вектора-4 (Череды Целых Чисел)</span>
+
+	<span class="kmntr_skr">// --- Связывания Значений Параметров ---</span>
+	<span class="vstvlm_prm_skr">$mrgn_2</span>		<span class="rscht_oprc_skr">:</span> <span class="vstvlm_prm_skr">$mrgn_1</span>					<span class="kmntr_skr">// Связывание Параметра с Вставляемым Параметром</span>
+	<span class="vstvlm_prm_skr">$prm_1</span>		<span class="rscht_oprc_skr">:</span> <span class="vstvlm_prm_skr">$cvt_base</span>					<span class="kmntr_skr">// Связывание Параметра с Вставляемым Параметром</span>
+	<span class="vstvlm_prm_skr">$prm_2</span>		<span class="rscht_oprc_skr">:</span> <span class="vstvlm_prm_skr">&user_cvt</span>		 			<span class="kmntr_skr">// Связывание Параметра с Указательным Параметром</span>
+
+	<span class="vstvlm_prm_skr">$prm_3</span>		<span class="rscht_oprc_skr">:</span> <span class="k_grp_skr">@</span><span class="z_grp_skr">prm</span><span class="rscht_oprc_skr">.</span><span class="vdm_vstvlm_prm_skr">$cvt_base</span>			<span class="kmntr_skr">// Связывание Параметра с Параметром</span>
+	<span class="vstvlm_prm_skr">$prm_4</span>		<span class="rscht_oprc_skr">:</span> <span class="k_grp_skr">@</span><span class="z_grp_skr">prm</span><span class="rscht_oprc_skr">.</span><span class="vdm_vstvlm_prm_skr">&user_cvt</span>			<span class="kmntr_skr">// Связывание Параметра с Параметром</span>
+	<span class="vstvlm_prm_skr">$tm_1</span>		<span class="rscht_oprc_skr">:</span> <span class="k_grp_skr">@</span><span class="z_grp_skr">tm</span><span class="rscht_oprc_skr">.</span><span class="vdm_obj_tm_skr">tm_1</span>		 			<span class="kmntr_skr">// Связывание Параметра с Темой</span>
+	<span class="vstvlm_prm_skr">$ustrv_1</span>	<span class="rscht_oprc_skr">:</span> <span class="k_grp_skr">@</span><span class="z_grp_skr">ustrv</span><span class="rscht_oprc_skr">.</span><span class="vdm_obj_ustrv_skr">vrnt_1</span>				<span class="kmntr_skr">// Связывание Параметра с Устройством</span>
+	<span class="vstvlm_prm_skr">$obrz_1</span>		<span class="rscht_oprc_skr">:</span> <span class="k_grp_skr">@</span><span class="z_grp_skr">obrz</span><span class="rscht_oprc_skr">.</span><span class="vdm_obj_obrz_skr">main_viewport</span>		<span class="kmntr_skr">// Связывание Параметра с Образом</span>
+	<span class="vstvlm_prm_skr">$elmnt_1</span>	<span class="rscht_oprc_skr">:</span> <span class="k_grp_skr">@</span><span class="z_grp_skr">elmnt</span><span class="rscht_oprc_skr">.</span><span class="vdm_obj_elmnt_k_skr">elmnt_svz_1</span>		<span class="kmntr_skr">// Связывание Параметра с Элементом (по Коду Элемента)</span>
+
+	<span class="kmntr_skr">// --- Задание Значений в Форме Текстовых Строк ---</span>
+	<span class="vstvlm_prm_skr">$str_1</span>		<span class="rscht_oprc_skr">:</span> <span class="str_prm_skr">"строка1"</span>		 <span class="kmntr_skr">// Задание Значения Вставляемого Параметра в Форме Короткой Строки</span>
+	<span class="vstvlm_prm_skr">$str_2</span>		<span class="rscht_oprc_skr">:</span> <span class="str_prm_skr">"строка12213 2"</span>	<span class="kmntr_skr">// Задание Значения Вставляемого Параметра в Форме Длинной Строки</span>
+	<span class="vstvlm_prm_skr">$str_3</span>		<span class="rscht_oprc_skr">:</span> <span class="str_prm_skr">"строка12213 2"</span>	<span class="kmntr_skr">// Задание Значения Вставляемого Параметра в Форме Длинной Строки (Повторяет Значение Варианта $str_2)</span>
+
+	<span class="kmntr_skr">// --- Задание Значений в Форме Вложенных Составных Структур ---</span>
+	<span class="vstvlm_prm_skr">$rzm_4_1</span>	<span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>				 <span class="kmntr_skr">// Задание Значения Вставляемого Параметра в Форме Составного Блока Размера</span>
+		<span class="k_prm_skr">rzm_h</span>	<span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+		<span class="k_prm_skr">rzm_v</span>	<span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">STRH</span>
+
+		<span class="k_prm_skr">rzm_h_0</span>	<span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">STRH</span>
+		<span class="k_prm_skr">rzm_h_1</span>	<span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+		<span class="k_prm_skr">rzm_v_0</span>	<span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+		<span class="k_prm_skr">rzm_v_1</span>	<span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+	<span class="skb_skr">}</span><span class="kmntr_skr">//*/</span>
+</span><span class="skb_skr">}</span><span class="kmntr_skr">//*/</span>
+
+
+<span class="kmntr_skr">// ============================================================================</span>
+<span class="kmntr_skr">// 2. ТЕМЫ (@tm) — Переопределяют вставляемые $параметры (Приоритет 4.2)</span>
+<span class="kmntr_skr">// ============================================================================</span>
+<span class="sys_prm_skr"><span class="k_grp_skr">@</span><span class="z_grp_skr">tm</span></span> <span class="skb_skr">{</span><span class="space_block_tm">
+	<span class="vdm_obj_tm_skr">tm_1</span> <span class="skb_skr">(</span>
+		<span class="vstvlm_prm_skr">$cvt_base</span><span class="rscht_oprc_skr">:</span> <span class="color_preview_skr" style="background-color: #015055FF;"></span><span class="cvt_prm_skr">#015055FF</span>
+		<span class="vstvlm_prm_skr">$cvt_dop</span>	<span class="rscht_oprc_skr">:</span> <span class="color_preview_skr" style="background-color: #825055FF;"></span><span class="cvt_prm_skr">#825055FF</span>
+	<span class="skb_skr">)</span>
+	<span class="vdm_obj_tm_skr">tm_2</span> <span class="skb_skr">(</span>
+		<span class="vstvlm_prm_skr">$cvt_base</span><span class="rscht_oprc_skr">:</span> <span class="color_preview_skr" style="background-color: #012022FF;"></span><span class="cvt_prm_skr">#012022FF</span>
+		<span class="vstvlm_prm_skr">$cvt_dop</span>	<span class="rscht_oprc_skr">:</span> <span class="color_preview_skr" style="background-color: #821011FF;"></span><span class="cvt_prm_skr">#821011FF</span>
+	<span class="skb_skr">)</span>
+</span><span class="skb_skr">}</span><span class="kmntr_skr">//*/</span>
+
+<span class="kmntr_skr">// ============================================================================</span>
+<span class="kmntr_skr">// 3. ПРОФИЛИ УСТРОЙСТВ (@ustrv) — Корректировка под тип «железа» (Приоритет 4.3)</span>
+<span class="kmntr_skr">// ============================================================================</span>
+<span class="sys_prm_skr"><span class="k_grp_skr">@</span><span class="z_grp_skr">ustrv</span></span> <span class="skb_skr">{</span><span class="space_block_ustrv">
+
+	<span class="kmntr_skr">// ПРИ СОВПАДЕНИИ НЕСКОЛЬКИХ ВАРИАНТОВ, ВЫБИРАЕТСЯ ПОСЛЕДНИЙ СОВПАВШИЙ</span>
+
+	<span class="vdm_obj_ustrv_skr">vrnt_1</span> <span class="skb_skr">(</span>
+		<span class="k_prm_skr">s_okn_rzm</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+			<span class="k_prm_skr">okn_rzm_h</span><span class="rscht_oprc_skr">:</span> <span class="vdm_ustrv_srvn_skr">?</span><span class="vdm_ustrv_srvn_skr">></span><span class="chsl_prm_skr">100</span>
+			<span class="k_prm_skr">okn_rzm_v</span><span class="rscht_oprc_skr">:</span> <span class="vdm_ustrv_srvn_skr">?</span><span class="vdm_ustrv_srvn_skr">==</span><span class="chsl_prm_skr">80</span>
+		<span class="skb_skr">}</span>
+	<span class="skb_skr">)</span> <span class="skb_skr">{</span>
+		<span class="vstvlm_prm_skr">$shrft_rzm</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">14</span>
+		<span class="vstvlm_prm_skr">$zglv_vst</span>		<span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">80</span>
+	<span class="skb_skr">}</span>
+
+	<span class="vdm_obj_ustrv_skr">vrnt_2</span> <span class="skb_skr">(</span>
+		<span class="k_prm_skr">s_okn_rzm</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+			<span class="k_prm_skr">okn_rzm_h</span><span class="rscht_oprc_skr">:</span> <span class="vdm_ustrv_srvn_skr">?</span><span class="vdm_ustrv_srvn_skr"><</span><span class="chsl_prm_skr">200</span>
+			<span class="k_prm_skr">okn_rzm_v</span><span class="rscht_oprc_skr">:</span> <span class="vdm_ustrv_srvn_skr">?</span><span class="vdm_ustrv_srvn_skr">!=</span><span class="chsl_prm_skr">40</span>
+		<span class="skb_skr">}</span>
+	<span class="skb_skr">)</span> <span class="skb_skr">{</span>
+		<span class="vstvlm_prm_skr">$shrft_rzm</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">16</span>	<span class="kmntr_skr">// На смартфонах кнопки крупнее</span>
+		<span class="vstvlm_prm_skr">$zglv_vst</span>		<span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">60</span>
+	<span class="skb_skr">}</span>
+
+</span><span class="skb_skr">}</span><span class="kmntr_skr">//*/</span>
+
+<span class="kmntr_skr">// ============================================================================</span>
+<span class="kmntr_skr">// 4. ТАБЛИЦА СТИЛЕЙ (@obrz) — Многоразовые шаблоны (Приоритет 4.4)</span>
+<span class="kmntr_skr">// ============================================================================</span>
+<span class="sys_prm_skr"><span class="k_grp_skr">@</span><span class="z_grp_skr">obrz</span></span> <span class="skb_skr">{</span><span class="space_block_obrz">
+
+	<span class="vdm_obj_obrz_skr">main_viewport</span> <span class="skb_skr">(</span>
+		<span class="kmntr_skr">// 1. Параметры Состояния (s_stn)</span>
+		<span class="k_prm_skr">s_stn</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+			<span class="k_prm_skr">rzm_frm</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">SHRK</span>
+			<span class="k_prm_skr">rzm_pzc</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">PZC</span>
+			<span class="k_prm_skr">rzm_pkz</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">VDM_1</span>
+			<span class="k_prm_skr">rzm_prln</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">OGRN</span>
+			<span class="k_prm_skr">rzm_flg</span><span class="rscht_oprc_skr">:</span>	<span class="skb_skr">(</span><span class="pstn_prm_skr">VDL</span> <span class="rscht_oprc_skr">|</span> <span class="pstn_prm_skr">INRT</span> <span class="rscht_oprc_skr">|</span> <span class="pstn_prm_skr">RM</span><span class="skb_skr">)</span>
+			<span class="k_prm_skr">krs_t</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">UKZ</span>
+		<span class="skb_skr">}</span>
+
+		<span class="kmntr_skr">// 2. Размерные Параметры (s_rzm)</span>
+		<span class="k_prm_skr">s_rzm</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+			<span class="k_prm_skr">rzm_h</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">100</span>
+			<span class="k_prm_skr">rzm_v</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">80</span>
+
+			<span class="k_prm_skr">rzm_h_0</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+			<span class="k_prm_skr">rzm_h_1</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+			<span class="k_prm_skr">rzm_v_0</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+			<span class="k_prm_skr">rzm_v_1</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+		<span class="skb_skr">}</span>
+
+		<span class="kmntr_skr">// 3. Граничные Параметры (s_grnc)</span>
+		<span class="k_prm_skr">s_grnc</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+			<span class="k_prm_skr">tlschn_vrhn</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">2</span>
+			<span class="k_prm_skr">tlschn_prv</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">1</span>
+			<span class="k_prm_skr">tlschn_nj</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">4</span>
+			<span class="k_prm_skr">tlschn_lv</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">1</span>
+
+			<span class="k_prm_skr">krg_vrhn</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">0</span>
+			<span class="k_prm_skr">krg_prv</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">5</span>
+			<span class="k_prm_skr">krg_nj</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">0</span>
+			<span class="k_prm_skr">krg_lv</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">0</span>
+
+			<span class="k_prm_skr">cvt_vrhn</span><span class="rscht_oprc_skr">:</span> <span class="color_preview_skr" style="background-color: #FF5733;"></span><span class="cvt_prm_skr">#FF5733</span>
+			<span class="k_prm_skr">cvt_prv</span><span class="rscht_oprc_skr">:</span> <span class="color_preview_skr" style="background-color: #FF5733;"></span><span class="cvt_prm_skr">#FF5733</span>
+			<span class="kmntr_skr">//cvt_prv: &amp;cvt_osn</span>
+			<span class="k_prm_skr">cvt_nj</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">0xFF0000FF</span>
+			<span class="k_prm_skr">cvt_lv</span><span class="rscht_oprc_skr">:</span> <span class="color_preview_skr" style="background-color: #FF5733;"></span><span class="cvt_prm_skr">#FF5733</span>
+			<span class="kmntr_skr">//cvt_lv: &amp;cvt_osn</span>
+		<span class="skb_skr">}</span>
+
+		<span class="kmntr_skr">// 4. Позиционные Параметры (s_pzc)</span>
+		<span class="k_prm_skr">s_pzc</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+			<span class="k_prm_skr">pzc_rvn</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">(</span><span class="pstn_prm_skr">PRV</span><span class="rscht_oprc_skr">,</span> <span class="pstn_prm_skr">NJ</span><span class="skb_skr">)</span>
+			<span class="k_prm_skr">pzc_h</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">45</span>
+			<span class="k_prm_skr">pzc_v</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">150</span>
+			<span class="k_prm_skr">pzc_glbn</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">100</span>
+		<span class="skb_skr">}</span>
+
+		<span class="kmntr_skr">// 5. Внешние Отступы (s_otsp_1)</span>
+		<span class="k_prm_skr">s_otsp_1</span><span class="rscht_oprc_skr">:</span>	<span class="skb_skr">[</span><span class="chsl_prm_skr">10</span><span class="rscht_oprc_skr">,</span> <span class="chsl_prm_skr">5</span><span class="rscht_oprc_skr">,</span> <span class="chsl_prm_skr">6</span><span class="rscht_oprc_skr">,</span> <span class="chsl_prm_skr">8</span><span class="skb_skr">]</span>	<span class="kmntr_skr">// top, right, bottom, left</span>
+
+		<span class="kmntr_skr">// 6. Внутренние Отступы (s_otsp_0)</span>
+		<span class="k_prm_skr">s_otsp_0</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">[</span><span class="chsl_prm_skr">25</span><span class="rscht_oprc_skr">,</span> <span class="chsl_prm_skr">35</span><span class="rscht_oprc_skr">,</span> <span class="chsl_prm_skr">45</span><span class="rscht_oprc_skr">,</span> <span class="chsl_prm_skr">15</span><span class="skb_skr">]</span>
+
+		<span class="kmntr_skr">// 7. Шрифтовые Параметры (s_shrft)</span>
+		<span class="k_prm_skr">s_shrft</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+			<span class="kmntr_skr">//shrft_rzm: $shrft_rzm</span>
+			<span class="k_prm_skr">shrft_rzm</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">24</span>
+			<span class="k_prm_skr">shrft_vst</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">1.0</span>
+			<span class="k_prm_skr">shrft_otsp_v</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">1</span>
+			<span class="k_prm_skr">shrft_otsp_h</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">1</span>
+			<span class="k_prm_skr">shrft_tlschn</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">4</span>
+			<span class="k_prm_skr">shrft_rvn</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">SRDN</span>
+		<span class="skb_skr">}</span>
+
+		<span class="kmntr_skr">// 8. Цветовые Параметры (s_cvt)</span>
+		<span class="k_prm_skr">s_cvt</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+			<span class="kmntr_skr">//cvt_osn:		&amp;cvt_osn</span>
+			<span class="k_prm_skr">cvt_osn</span><span class="rscht_oprc_skr">:</span>		<span class="chsl_prm_skr">0xFF0000FF</span>
+			<span class="kmntr_skr">//cvt_fn:		$cvt_base</span>
+			<span class="k_prm_skr">cvt_fn</span><span class="rscht_oprc_skr">:</span>		<span class="color_preview_skr" style="background-color: #FF5733;"></span><span class="cvt_prm_skr">#FF5733</span>
+			<span class="k_prm_skr">cvt_shrft</span><span class="rscht_oprc_skr">:</span> <span class="color_preview_skr" style="background-color: #FF5733;"></span><span class="cvt_prm_skr">#FF5733</span>
+			<span class="k_prm_skr">pltns</span><span class="rscht_oprc_skr">:</span>		<span class="chsl_prm_skr">255</span>
+		<span class="skb_skr">}</span>
+	<span class="skb_skr">)</span>
+
+	<span class="vdm_obj_obrz_skr">main_viewport2</span> <span class="skb_skr">(</span>
+
+		<span class="k_prm_skr">obrz_strh</span><span class="rscht_oprc_skr">:</span> <span class="vdm_obj_obrz_skr">main_viewport</span>
+		<span class="k_prm_skr">s_stn</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+			<span class="k_prm_skr">rzm_frm</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">SHRK</span>
+			<span class="k_prm_skr">rzm_pzc</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">PZC</span>
+			<span class="k_prm_skr">rzm_pkz</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">VDM_1</span>
+			<span class="k_prm_skr">rzm_prln</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">OGRN</span>
+			<span class="k_prm_skr">rzm_flg</span><span class="rscht_oprc_skr">:</span>	<span class="skb_skr">(</span><span class="pstn_prm_skr">VDL</span> <span class="rscht_oprc_skr">|</span> <span class="pstn_prm_skr">INRT</span> <span class="rscht_oprc_skr">|</span> <span class="pstn_prm_skr">RM</span><span class="skb_skr">)</span>
+			<span class="k_prm_skr">krs_t</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">UKZ</span>
+		<span class="skb_skr">}</span>
+	<span class="skb_skr">)</span>
+
+	<span class="vdm_obj_obrz_skr">main_viewport3</span> <span class="skb_skr">(</span>
+
+		<span class="k_prm_skr">obrz_strh</span><span class="rscht_oprc_skr">:</span> <span class="vdm_obj_obrz_skr">main_viewport2</span>
+	<span class="skb_skr">)</span><span class="kmntr_skr">//*/</span>
+
+	<span class="kmntr_skr">/*panel_header (
+		s_stn: {
+			rzm_frm:	BLOCK
+			rzm_pzc:	FLOW
+		}
+		rzm_v:	$zglv_vst
+
+		s_cvt: {
+			// Относительный статический расчет (Абсолютный сдвиг по каналам на этапе AoT)
+			cvt_fn: %$cvt_base+0x070707FF
+		}
+	)
+
+	ui_button (
+		s_stn: {
+			rzm_frm:	INLINE
+			rzm_pzc:	FLOW
+			rzm_flg:	(IS_FOCUSABLE | HIT_TEST_VISIBLE | BOX_SIZING_BORDER)
+			krs_t:	POINTER
+		}
+		s_pzc: {
+			pzc_h: 45
+			pzc_v: 150
+			pzc_glbn: 100
+		}
+		s_rzm: {
+			rzm_h: 150
+			rzm_v: 45
+		}
+
+		s_cvt: {
+			// Статический векторный блендинг (Умножение float-каналов при компиляции)
+			cvt_fn: %$cvt_dop*0xFFFF7FFF
+			//cvt_osn:		&amp;cvt_osn
+			// НИЖЕ ПРИМЕР ОТМЕТА МУСОРНЫХ "ПРОБЕЛЬНЫХ" СИМВОЛОВ
+			
+			// Прямая связь с ОЗУ: цвет текста мгновенно меняется вслед за &amp;user_cvt
+			cvt_osn: &amp;user_cvt	// СПЕЦИАЛЬНЫЙ ПРИМЕР НЕСООТВЕТСТВИЯ ТИПА (ПРОВОКАЦИЯ ОШИБА КОМПИЛЯЦИИ)
+		}
+		s_shrft: {
+			shrft_rzm: $shrft_rzm
+			slv_rvn: CENTER
+		// НИЖЕ ПРИМЕР ОТМЕТА МУСОРНЫХ "ПРОБЕЛЬНЫХ" СИМВОЛОВ
+		}	
+	)*/</span>
+</span><span class="skb_skr">}</span><span class="kmntr_skr">//*/</span>
+
+<span class="kmntr_skr">// ============================================================================</span>
+<span class="kmntr_skr">// 5. ТОПОЛОГИЯ ИНТЕРФЕЙСА (@elmnt) — Дерево элементов макета (Приоритет 4.5)</span>
+<span class="kmntr_skr">// ============================================================================</span>
+<span class="sys_prm_skr"><span class="k_grp_skr">@</span><span class="z_grp_skr">elmnt</span></span> <span class="skb_skr">{</span><span class="space_block_elmnt">
+
+	<span class="obj_elmnt_skr">krb</span><span class="rscht_oprc_skr">:</span><span class="obj_elmnt_k_skr">elmnt_svz_1</span> <span class="skb_skr">(</span>
+		<span class="kmntr_skr">//elmnt_obrz: main_viewport</span>
+		<span class="kmntr_skr">//elmnt_obrz: main_viewport2</span>
+		<span class="k_prm_skr">elmnt_obrz</span><span class="rscht_oprc_skr">:</span> <span class="vdm_obj_obrz_skr">main_viewport</span>
+	<span class="skb_skr">)</span>
+
+	<span class="obj_elmnt_skr">krb</span><span class="rscht_oprc_skr">:</span><span class="obj_elmnt_k_skr">viewport</span> <span class="skb_skr">(</span>
+		<span class="k_prm_skr">elmnt_obrz</span><span class="rscht_oprc_skr">:</span> <span class="vdm_obj_obrz_skr">main_viewport</span>
+		<span class="k_prm_skr">elmnt_osn_prm</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+			<span class="k_prm_skr">s_stn</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+				<span class="k_prm_skr">rzm_frm</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">PRSK</span>
+				<span class="k_prm_skr">rzm_pzc</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">CHRD</span>
+				<span class="k_prm_skr">rzm_pkz</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">VDM_1</span>
+				<span class="k_prm_skr">rzm_prln</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">AVTM</span>
+				<span class="k_prm_skr">rzm_flg</span><span class="rscht_oprc_skr">:</span>	<span class="skb_skr">(</span><span class="pstn_prm_skr">VDL</span> <span class="rscht_oprc_skr">|</span> <span class="pstn_prm_skr">INRT</span><span class="skb_skr">)</span>
+				<span class="k_prm_skr">krs_t</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">STRL</span>
+			<span class="skb_skr">}</span>
+		<span class="skb_skr">}</span>
+		<span class="k_prm_skr">elmnt_obrz_mldsh</span><span class="rscht_oprc_skr">:</span> <span class="vdm_obj_obrz_skr">main_viewport2</span>
+		<span class="skb_skr">[</span>
+			<span class="obj_elmnt_skr">krb</span><span class="rscht_oprc_skr">:</span><span class="obj_elmnt_k_skr">viewport2</span> <span class="skb_skr">(</span>
+				<span class="k_prm_skr">elmnt_obrz_mldsh</span><span class="rscht_oprc_skr">:</span> <span class="vdm_obj_obrz_skr">main_viewport2</span>
+				<span class="k_prm_skr">elmnt_osn_prm</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+					<span class="k_prm_skr">s_rzm</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+						<span class="k_prm_skr">rzm_h</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">100</span>
+						<span class="k_prm_skr">rzm_v</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">80</span>
+
+						<span class="k_prm_skr">rzm_h_0</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+						<span class="k_prm_skr">rzm_h_1</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+						<span class="k_prm_skr">rzm_v_0</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+						<span class="k_prm_skr">rzm_v_1</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+					<span class="skb_skr">}</span>
+				<span class="skb_skr">}</span>
+			<span class="skb_skr">)</span>
+			<span class="kmntr_skr">// Верхняя навигационная панель</span>
+			<span class="obj_elmnt_skr">krb</span><span class="rscht_oprc_skr">:</span><span class="obj_elmnt_k_skr">top_nav1</span> <span class="skb_skr">(</span>
+				<span class="kmntr_skr">//elmnt_obrz: panel_header</span>
+				<span class="k_prm_skr">elmnt_obrz</span><span class="rscht_oprc_skr">:</span> <span class="vdm_obj_obrz_skr">main_viewport</span>
+			<span class="skb_skr">)</span>
+			<span class="vdm_obj_elmnt_k_skr">.elmnt_svz_1</span>
+			<span class="obj_elmnt_skr">krb</span> <span class="skb_skr">(</span>
+				<span class="k_prm_skr">elmnt_osn_prm</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+					<span class="k_prm_skr">s_stn</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+						<span class="k_prm_skr">rzm_frm</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">PRSK</span>
+						<span class="k_prm_skr">rzm_pzc</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">CHRD</span>
+						<span class="k_prm_skr">rzm_pkz</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">VDM_1</span>
+						<span class="k_prm_skr">rzm_prln</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">AVTM</span>
+						<span class="k_prm_skr">rzm_flg</span><span class="rscht_oprc_skr">:</span>	<span class="skb_skr">(</span><span class="pstn_prm_skr">VDL</span> <span class="rscht_oprc_skr">|</span> <span class="pstn_prm_skr">INRT</span><span class="skb_skr">)</span>
+						<span class="k_prm_skr">krs_t</span><span class="rscht_oprc_skr">:</span>	<span class="pstn_prm_skr">UKZ</span>
+					<span class="skb_skr">}</span>
+				<span class="skb_skr">}</span>
+			<span class="skb_skr">)</span>
+			<span class="obj_elmnt_skr">krb</span> <span class="skb_skr">(</span><span class="skb_skr">)</span>
+			<span class="obj_elmnt_skr">krb</span> <span class="skb_skr">(</span>
+				<span class="k_prm_skr">elmnt_osn_prm</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+					<span class="k_prm_skr">s_rzm</span><span class="rscht_oprc_skr">:</span> <span class="skb_skr">{</span>
+						<span class="k_prm_skr">rzm_h</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">200</span>
+						<span class="k_prm_skr">rzm_v</span><span class="rscht_oprc_skr">:</span> <span class="chsl_prm_skr">40</span>
+
+						<span class="k_prm_skr">rzm_h_0</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+						<span class="k_prm_skr">rzm_h_1</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+						<span class="k_prm_skr">rzm_v_0</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+						<span class="k_prm_skr">rzm_v_1</span><span class="rscht_oprc_skr">:</span> <span class="pstn_prm_skr">NZ</span>
+					<span class="skb_skr">}</span>
+				<span class="skb_skr">}</span>
+			<span class="skb_skr">)</span>
+			<span class="obj_elmnt_skr">krb</span><span class="rscht_oprc_skr">:</span><span class="obj_elmnt_k_skr">top_nav2</span> <span class="skb_skr">(</span>
+				<span class="k_prm_skr">elmnt_obrz</span><span class="rscht_oprc_skr">:</span> <span class="vdm_obj_obrz_skr">main_viewport</span>
+			<span class="skb_skr">)</span>
+			<span class="obj_elmnt_skr">krb</span> <span class="skb_skr">(</span><span class="skb_skr">)</span>
+			<span class="kmntr_skr">//krb (</span>
+			<span class="kmntr_skr">//	elmnt_k: top_nav3</span>
+			<span class="kmntr_skr">//	//elmnt_obrz: panel_header</span>
+			<span class="kmntr_skr">//)</span>
+			<span class="kmntr_skr">//krb (</span>
+			<span class="kmntr_skr">//	elmnt_k: top_nav4</span>
+			<span class="kmntr_skr">//	elmnt_obrz: main_viewport2</span>
+			<span class="kmntr_skr">//)</span>
+		<span class="skb_skr">]</span>
+	<span class="skb_skr">)</span><span class="kmntr_skr">//*/</span>
+
+		<span class="kmntr_skr">// ДОПУСКАЕТСЯ ПОЗДНЕЕ ОПИСАНИЕ ЭЛЕМЕНТОВ, ДОСТУП К КОТОРЫМ ОСУЩЕСТВЛЯЕТСЯ ПО УКАЗАТЕЛЮ</span>
+	<span class="kmntr_skr">/*krb (
+		elmnt_k: elmnt_svz_1
+		elmnt_obrz: main_viewport
+	)*/</span>
+	<span class="kmntr_skr">// ДОПУСКАЕТСЯ ПОЗДНЕЕ ОПИСАНИЕ ЭЛЕМЕНТОВ, ДОСТУП К КОТОРЫМ ОСУЩЕСТВЛЯЕТСЯ ПО УКАЗАТЕЛЮ. Конец</span>
+
+
+		<span class="kmntr_skr">// ПРИМЕР ОШИБА ПОВТОРА КОДА ЭЛЕМЕНТОВ</span>
+	<span class="kmntr_skr">/*krb (
+		elmnt_k: viewport3
+		elmnt_obrz: main_viewport
+	)
+	krb (
+		elmnt_k: viewport3
+		elmnt_obrz: main_viewport
+	)*/</span>
+	<span class="kmntr_skr">// ПРИМЕР ОШИБА ПОВТОРА КОДА ЭЛЕМЕНТОВ. Конец</span>
+</span><span class="skb_skr">}</span><span class="kmntr_skr">//*/</span>
+
+
+
+<span class="kmntr_skr">/*@algrtm {
+
+}*/</span>
+
+</pre>
+</body>
+</html>
